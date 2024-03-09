@@ -4,11 +4,29 @@ namespace App\Http\Controllers;
 
 use App\Models\Appointment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 
 class AppointmentsController extends Controller
 {
     public function index()
     {
-        return view('welcome');
+        $appointments = Appointment::all();
+
+        return view('appointments.index', compact('appointments'));
     }
+
+    /*
+    public function create()
+    {
+        return view('appointments.create');
+    }
+    */
+    public function store(Request $request)
+    {
+        $appointment = new Appointment();
+        $appointment->fill($request->only('date','time'));
+        $appointment->save();
+        return redirect('/');
+    }
+
 }
