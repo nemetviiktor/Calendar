@@ -31,7 +31,7 @@
                     center: 'title',
                     right: 'dayGridMonth,timeGridWeek,timeGridDay'
                 },
-
+                selectable:true,
                 events: [
                         @foreach($appointments as $appointment)
                     {
@@ -50,14 +50,25 @@
                         display: 'background'
                     }
                 ],
+                dateClick: function(info) {
+                    calendar.changeView('timeGridDay', info.dateStr);
+                },
+                select: function(info) {
+                    if (info.view.type === 'dayGridDay' || info.view.type === 'timeGridDay') {
+                        alert('selected ' + info.startStr + ' to' + info.endStr);
+                    }
+                },
                 eventTimeFormat: {
                     hour: '2-digit',
                     minute: '2-digit',
                     hour12: false
-                }
+                },
+
             });
 
             calendar.render();
+
+
         });
     </script>
 </head>
