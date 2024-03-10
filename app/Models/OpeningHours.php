@@ -9,10 +9,11 @@ class OpeningHours extends Model
     protected $table = 'opening_hours';
 
     protected $fillable = [
-        'startRecur',
-        'endRecur',
-        'recurring',
-        'daysOfWeek',
+        'dtstart',
+        'until',
+        'freq',
+        'interval',
+        'byweekday',
         'time'
     ];
 }
