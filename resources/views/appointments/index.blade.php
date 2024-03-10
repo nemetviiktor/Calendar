@@ -6,6 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <title>Appointments</title>
     <style>
         html, body {
@@ -26,36 +27,41 @@
 
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
+                timeZone: 'Europe/Budapest',
                 headerToolbar: {
                     left: 'prev,next today',
                     center: 'title',
                     right: 'dayGridMonth,timeGridWeek,timeGridDay'
                 },
                 selectable:true,
-                events: [
-                        @foreach($appointments as $appointment)
-                    {
-                        title: 'title',
-                        start: '{{$appointment->date}}T{{$appointment->time}}'
-                    },
-                        @endforeach
-                    {
-                        start: '2024-03-09T08:00:00',
-                        end: '2024-03-09T16:00:00',
-                        display: 'background'
-                    },
-                    {
-                        start: '2024-03-10T08:00:00',
-                        end: '2024-03-10T16:00:00',
-                        display: 'background'
+
+                events: {
+                    url: '/getAppointments',
+                    method: 'GET',
+                    failure: function() {
+                        alert('There was an error fetching appointments!');
                     }
-                ],
+                },
                 dateClick: function(info) {
                     calendar.changeView('timeGridDay', info.dateStr);
                 },
                 select: function(info) {
-                    if (info.view.type === 'dayGridDay' || info.view.type === 'timeGridDay') {
-                        alert('selected ' + info.startStr + ' to' + info.endStr);
+                    if (info.view.type === 'timeGridDay') {
+                        $.ajax({
+                            url: '/',
+                            type: 'POST',
+                            data: {
+                                date: info.startStr,
+                                _token: '{{csrf_token()}}'
+                            },
+                            success: function(response) {
+                                console.log('Appointment saved: ', response, info.startStr);
+                                calendar.refetchEvents();
+                            },
+                            error: function(xhr, status, error) {
+                                console.error('Error saving appointment: ', error);
+                            }
+                        })
                     }
                 },
                 eventTimeFormat: {

@@ -15,18 +15,27 @@ class AppointmentsController extends Controller
         return view('appointments.index', compact('appointments'));
     }
 
+    public function getAppointments()
+    {
+        $appointments = Appointment::all();
+
+        return response()->json($appointments);
+    }
+
     /*
     public function create()
     {
         return view('appointments.create');
     }
     */
+
     public function store(Request $request)
     {
         $appointment = new Appointment();
-        $appointment->fill($request->only('date','time'));
+        $appointment->fill($request->only('date'));
         $appointment->save();
-        return redirect('/');
+
+        return response()->json(['message' => 'Event updated successfully']);
     }
 
 }

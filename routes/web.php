@@ -5,4 +5,4 @@ use App\Http\Controllers\AppointmentsController;
 
 Route::resource('/', AppointmentsController::class);
 
-//Route::get('/appointments', [AppointmentsController::class, 'index']);
+Route::get('/getAppointments', [AppointmentsController::class, 'getAppointments']);
