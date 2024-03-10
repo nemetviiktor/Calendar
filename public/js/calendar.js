@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
+
     var calendarEl = document.getElementById('calendar');
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -11,14 +12,10 @@ document.addEventListener('DOMContentLoaded', function () {
             right: 'dayGridMonth,timeGridWeek,timeGridDay'
         },
         selectable:true,
-
-        events: {
-            url: '/getAppointments',
-            method: 'GET',
-            failure: function() {
-                alert('There was an error fetching appointments!');
-            }
-        },
+        eventSources: [
+            '/getAppointments',
+            '/getOpeningHours'
+        ],
         dateClick: function(info) {
             calendar.changeView('timeGridDay', info.dateStr);
         },
