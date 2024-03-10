@@ -27,10 +27,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 $.ajax({
                     url: '/',
                     type: 'POST',
+                    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                     data: {
                         date: info.startStr,
                         name: name,
-                        _token: '{{csrf_token()}}'
                     },
                     success: function(response) {
                         console.log('Appointment saved: ', response, info.startStr, name);
