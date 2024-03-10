@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
         timeZone: 'Europe/Budapest',
+        locale: 'hu',
         headerToolbar: {
             left: 'prev,next today',
             center: 'title',
@@ -30,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                     data: {
                         date: info.startStr,
-                        name: name,
+                        name: name
                     },
                     success: function(response) {
                         console.log('Appointment saved: ', response, info.startStr, name);
