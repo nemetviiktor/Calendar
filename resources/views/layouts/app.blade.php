@@ -8,6 +8,8 @@
 
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.11/locales-all.global.min.js"></script>
+    <script src='https://cdn.jsdelivr.net/npm/rrule@2.6.4/dist/es5/rrule.min.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/rrule@6.1.11/index.global.min.js'></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <link rel="stylesheet" type="text/css" href="{{ asset('css/styles.css') }}">
     <script src="{{ asset('js/calendar.js') }}" defer></script>
