@@ -22,7 +22,7 @@ class OpeningHoursController extends Controller
                     'rrule' => [
                         'freq' => $openingHour->freq,
                         'interval' => $openingHour->interval,
-                        'byweekday' => [(int) $openingHour->byweekday], //több nappal nem lesz jó
+                        'byweekday' => [(int) $openingHour->byweekday],
                         'dtstart' => $openingHoursUtility->getDtStart($openingHour->dtstart, $openingHour->time),
                         'until' => $openingHour->until
                     ],

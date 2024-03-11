@@ -20,6 +20,42 @@ class SeedOpeningHours extends Command
             'time' => '08:00-10:00'
         ]);
 
+        OpeningHours::create([
+            'dtstart' => '2024-01-08',
+            'until' => NULL,
+            'freq' => 'weekly',
+            'interval' => '2',
+            'byweekday' => '0',
+            'time' => '10:00-12:00'
+        ]);
+
+        OpeningHours::create([
+            'dtstart' => '2024-01-01',
+            'until' => NULL,
+            'freq' => 'weekly',
+            'interval' => '2',
+            'byweekday' => '2',
+            'time' => '12:00-16:00'
+        ]);
+
+        OpeningHours::create([
+            'dtstart' => '2024-01-01',
+            'until' => NULL,
+            'freq' => 'weekly',
+            'interval' => '1',
+            'byweekday' => '4',
+            'time' => '10:00-16:00'
+        ]);
+
+        OpeningHours::create([
+            'dtstart' => '2024-06-01',
+            'until' => '2024-11-30',
+            'freq' => 'weekly',
+            'interval' => '1',
+            'byweekday' => '3',
+            'time' => '16:00-20:00'
+        ]);
+
         $this->info("Opening hours added successfully!");
     }
 
