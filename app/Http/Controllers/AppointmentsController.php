@@ -9,32 +9,32 @@ class AppointmentsController extends Controller
 {
     public function index()
     {
-        $appointments = Appointment::all();
-
-        return view('appointments.index', compact('appointments'));
+        return view('appointments.index');
     }
 
     public function getAppointments()
     {
         $appointments = Appointment::all();
+        $data = [];
 
-        return response()->json($appointments);
+        foreach($appointments as $appointment)
+        {
+            $data[] = [
+                'start' => $appointment->start,
+                'end' => $appointment->end,
+                'title' => $appointment->username
+            ];
+        }
+        
+        return response()->json($data);
     }
-
-    /*
-    public function create()
-    {
-        return view('appointments.create');
-    }
-    */
 
     public function store(Request $request)
     {
         $appointment = new Appointment();
-        $appointment->fill($request->only('date'));
+        $appointment->fill($request->only('start', 'end', 'username'));
         $appointment->save();
 
         return response()->json(['message' => 'Event updated successfully']);
     }
-
 }

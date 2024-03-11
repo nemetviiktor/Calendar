@@ -11,7 +11,6 @@ document.addEventListener('DOMContentLoaded', function () {
             center: 'title',
             right: 'dayGridMonth,timeGridWeek,timeGridDay'
         },
-        selectable:true,
         eventSources: [
             '/getAppointments',
             '/getOpeningHours'
@@ -19,19 +18,22 @@ document.addEventListener('DOMContentLoaded', function () {
         dateClick: function(info) {
             calendar.changeView('timeGridDay', info.dateStr);
         },
+        selectable:true,
+        selectConstraint: 'openingHours',
         select: function(info) {
             if (info.view.type === 'timeGridDay') {
-                var name = window.prompt('Enter name: ', '');
+                var username = window.prompt('Enter name: ', '');
                 $.ajax({
                     url: '/',
                     type: 'POST',
                     headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                     data: {
-                        date: info.startStr,
-                        name: name
+                        start: info.startStr,
+                        end: info.endStr,
+                        username: username
                     },
                     success: function(response) {
-                        console.log('Appointment saved: ', response, info.startStr, name);
+                        console.log('Appointment saved: ', response, info.startStr, info.endStr, username);
                         calendar.refetchEvents();
                     },
                     error: function(xhr, status, error) {
