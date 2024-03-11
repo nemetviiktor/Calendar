@@ -26,7 +26,8 @@ class OpeningHoursController extends Controller
                         'dtstart' => $openingHoursUtility->getDtStart($openingHour->dtstart, $openingHour->time),
                         'until' => $openingHour->until
                     ],
-                    'duration' => $openingHoursUtility->getDuration($openingHour->time)
+                    'duration' => $openingHoursUtility->getDuration($openingHour->time),
+                    'groupId' => 'openingHours'
                 ];
             }
             else
@@ -35,6 +36,7 @@ class OpeningHoursController extends Controller
                     'display' => 'background',
                     'start' => $openingHoursUtility->getDtStart($openingHour->dtstart, $openingHour->time),
                     'end' => $openingHoursUtility->getEnd($openingHour->dtstart, $openingHour->time),
+                    'groupId' => 'openingHours'
                 ];
             }
         }
