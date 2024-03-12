@@ -34,8 +34,13 @@ document.addEventListener('DOMContentLoaded', function () {
                         username: username
                     },
                     success: function(response) {
-                        console.log('Appointment saved: ', response);
-                        calendar.refetchEvents();
+                        if (response.conflict){
+                            alert('Kérem a szabad időpontok közül válasszon!');
+                        }
+                        else {
+                            console.log('Appointment saved: ', response);
+                            calendar.refetchEvents();
+                        }
                     },
                     error: function(xhr, status, error) {
                         console.error('Error saving appointment: ', error);
