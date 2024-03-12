@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
         selectConstraint: 'openingHours',
         select: function(info) {
             if (info.view.type === 'timeGridDay') {
-                var username = window.prompt('Enter name: ', '');
+                var username = window.prompt('Kérem adja meg a nevét: ', '');
                 $.ajax({
                     url: '/',
                     type: 'POST',
@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         username: username
                     },
                     success: function(response) {
-                        console.log('Appointment saved: ', response, info.startStr, info.endStr, username);
+                        console.log('Appointment saved: ', response);
                         calendar.refetchEvents();
                     },
                     error: function(xhr, status, error) {
