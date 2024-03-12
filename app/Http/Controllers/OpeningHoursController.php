@@ -2,16 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\OpeningHours;
-use App\Helpers\OpeningHoursUtility;
 use App\Services\OpeningHoursService;
 
 class OpeningHoursController extends Controller
 {
+    private $openingHoursService;
+
+    public function __construct(OpeningHoursService $openingHoursService)
+    {
+        $this->openingHoursService = $openingHoursService;
+    }
     public function getOpeningHours()
     {
-        $openingHoursService = new OpeningHoursService();
-        $data = $openingHoursService->getOpeningHoursData();
-        return response()->json($data);
+        try {
+            $data = $this->openingHoursService->getOpeningHoursData();
+            return response()->json($data);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to retrieve opening hours data'], 500);
+        }
     }
 }
