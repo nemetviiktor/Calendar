@@ -2,6 +2,7 @@
 
 namespace App\Helpers;
 
+use App\Services\OpeningHoursService;
 use RRule\RRule;
 use App\Http\Controllers\OpeningHoursController;
 use Carbon\Carbon;
@@ -33,24 +34,25 @@ class OpeningHoursUtility
 
     public function isWithinOpeningHours($date) {
 
-        $openingHoursController = new OpeningHoursController();
-        $openingHours = $openingHoursController->getOpeningHours();
-        $openingHoursData = json_decode($openingHours->getContent(), true);
+        $openingHoursService = new OpeningHoursService();
+        $openingHoursData = $openingHoursService->getOpeningHoursData();
 
-        $length = count($openingHoursData)-1;
-
-        $rules = [];
         $occurrences = [];
-        for ($i = 0; $i <= $length; $i++) {
-            $rules[] = new RRule([
-                'FREQ' => $openingHoursData[$i]['rrule']['freq'],
-                'INTERVAL' => $openingHoursData[$i]['rrule']['interval'],
-                'BYDAY' => $openingHoursData[$i]['rrule']['byweekday'],
-                'DTSTART' => $openingHoursData[$i]['rrule']['dtstart'],
-                'UNTIL' => '2024-12-31'
-            ]);
-            $occurrences = array_merge($occurrences, $rules[$i]->getOccurrences());
+        foreach ($openingHoursData as $openingHourData) {
+            if (isset($openingHourData['rrule'])) {
+                $rule = new RRule([
+                    'FREQ' => $openingHourData['rrule']['freq'],
+                    'INTERVAL' => $openingHourData['rrule']['interval'],
+                    'BYDAY' => $openingHourData['rrule']['byweekday'],
+                    'DTSTART' => $openingHourData['rrule']['dtstart'],
+                    'UNTIL' => '2024-12-31'
+                ]);
+                $occurrences = array_merge($occurrences, $rule->getOccurrences());
+            } else {
+                $occurrences[] = Carbon::parse($openingHourData['start']);
+            }
         }
+
         $dateToSearch = Carbon::parse($date)->toDateString();
         foreach ($occurrences as $occurrence) {
             $formattedDate = $occurrence->format('Y-m-d');
