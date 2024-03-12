@@ -4,7 +4,6 @@ namespace App\Helpers;
 
 use App\Services\OpeningHoursService;
 use RRule\RRule;
-use App\Http\Controllers\OpeningHoursController;
 use Carbon\Carbon;
 
 class OpeningHoursUtility
