@@ -7,6 +7,7 @@ use App\Helpers\OpeningHoursUtility;
 
 class OpeningHoursController extends Controller
 {
+
     public function getOpeningHours()
     {
         $openingHours = OpeningHours::all();
@@ -21,8 +22,8 @@ class OpeningHoursController extends Controller
                     'display' => 'background',
                     'rrule' => [
                         'freq' => $openingHour->freq,
-                        'interval' => $openingHour->interval,
-                        'byweekday' => [(int) $openingHour->byweekday],
+                        'interval' => (int)$openingHour->interval,
+                        'byweekday' => $openingHour->byweekday,
                         'dtstart' => $openingHoursUtility->getDtStart($openingHour->dtstart, $openingHour->time),
                         'until' => $openingHour->until
                     ],

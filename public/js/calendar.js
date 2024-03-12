@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
             '/getAppointments',
             '/getOpeningHours'
         ],
+
         dateClick: function(info) {
             calendar.changeView('timeGridDay', info.dateStr);
         },

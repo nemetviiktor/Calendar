@@ -25,7 +25,7 @@ class SeedOpeningHours extends Command
             'until' => NULL,
             'freq' => 'weekly',
             'interval' => '2',
-            'byweekday' => '0',
+            'byweekday' => 'mo',
             'time' => '10:00-12:00'
         ]);
 
@@ -34,7 +34,7 @@ class SeedOpeningHours extends Command
             'until' => NULL,
             'freq' => 'weekly',
             'interval' => '2',
-            'byweekday' => '2',
+            'byweekday' => 'we',
             'time' => '12:00-16:00'
         ]);
 
@@ -43,7 +43,7 @@ class SeedOpeningHours extends Command
             'until' => NULL,
             'freq' => 'weekly',
             'interval' => '1',
-            'byweekday' => '4',
+            'byweekday' => 'fr',
             'time' => '10:00-16:00'
         ]);
 
@@ -52,7 +52,7 @@ class SeedOpeningHours extends Command
             'until' => '2024-11-30',
             'freq' => 'weekly',
             'interval' => '1',
-            'byweekday' => '3',
+            'byweekday' => 'th',
             'time' => '16:00-20:00'
         ]);
 
