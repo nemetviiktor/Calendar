@@ -3,10 +3,17 @@
 namespace App\Services;
 
 use App\Models\Appointment;
+use App\Services\OpeningHoursService;
 use App\Helpers\OpeningHoursUtility;
 
 class AppointmentService
 {
+    private $openingHoursService;
+
+    public function __construct(OpeningHoursService $openingHoursService)
+    {
+        $this->openingHoursService = $openingHoursService;
+    }
     public function getAppointments()
     {
         $appointments = Appointment::all();
@@ -34,7 +41,6 @@ class AppointmentService
 
     public function createAppointment($requestData)
     {
-        $openingHoursUtility = new OpeningHoursUtility();
         $start = $requestData->input('start');
         $end = $requestData->input('end');
 
@@ -42,7 +48,7 @@ class AppointmentService
             return ['message' => 'Appointment conflicts with existing event', 'conflict' => true];
         }
 
-        if ($openingHoursUtility->isWithinOpeningHours($start)) {
+        if ($this->openingHoursService->isWithinOpeningHours($start)) {
             $appointment = new Appointment();
             $appointment->fill($requestData->only('start', 'end', 'username'));
             $appointment->save();
