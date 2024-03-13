@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
         initialView: 'dayGridMonth',
         timeZone: 'Europe/Budapest',
         locale: 'hu',
+        themeSystem: 'bootstrap5',
         headerToolbar: {
             left: 'prev,next today',
             center: 'title',
